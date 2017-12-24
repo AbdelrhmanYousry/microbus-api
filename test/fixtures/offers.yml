@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  price: 1
+  duration: 2017-12-24 15:11:57
+  description: MyText
+  target_count: 1
+  vendor_product_id: 1
+  balance: 1
+
+two:
+  name: MyString
+  price: 1
+  duration: 2017-12-24 15:11:57
+  description: MyText
+  target_count: 1
+  vendor_product_id: 1
+  balance: 1
