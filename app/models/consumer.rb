@@ -1,4 +1,5 @@
 class Consumer < ApplicationRecord
+  has_secure_password
   has_many :wishlists
   has_many :products, through: :wishlists
 
@@ -7,5 +8,6 @@ class Consumer < ApplicationRecord
   has_many :destination_transactions, class_name: 'Transaction', as: :destination
   has_many :refunded_offers, class_name: 'Offer', through: :destination_transactions, source: :source, source_type: 'Offer'
 
-  validates :name, :email, :encrypted_password, :current_balance, presence: true
+  validates :name, :email, :password_digest, :current_balance, presence: true
+  validates :name, :email, uniqueness: true
 end
