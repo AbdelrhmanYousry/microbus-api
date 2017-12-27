@@ -9,7 +9,9 @@ class JsonWebToken
 
   # Decodes the JWT with the signed secret
   def self.decode(token)
-    JWT.decode(token, Rails.application.secrets.secret_key_base)
+    # JWT.decode(token, Rails.application.secrets.secret_key_base)
+    return HashWithIndifferentAccess.new(JWT.decode(token, Rails.application.secrets.secret_key_base)[0])
+
   end
 
   # Validates the payload hash for expiration and meta claims
