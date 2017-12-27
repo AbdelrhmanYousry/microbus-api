@@ -14,7 +14,8 @@ class ApplicationController < ActionController::API
     #@payload_token || = if request.headers['Authentication-Token'].present?
                          #request.headers['Authentication-Token'].split('.').last
                        #end
-    @jwt_token ||= request.headers['Authentication-Token']
+      @jwt_token ||= request.headers['Authentication-Token']
+
   end
 
   def session_info
@@ -22,7 +23,7 @@ class ApplicationController < ActionController::API
   end
 
   def current_user
-    @current_user ||= Consumer.find session_info[:consumer_id]
+    @current_user ||= Consumer.find session_info[:user_id]
   rescue ActiveRecord::RecordNotFound
     nil
   end
