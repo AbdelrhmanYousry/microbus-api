@@ -1,20 +1,12 @@
 class VendorProductsController < ApplicationController
+    before_action :authenticate_vendor_request!
     def create
-        product = find the product with title  = params[:name]
-        if product exists?
-            VendorProduct.create(prod.id, current_vendor)
+        product = Product.find params[:product_id]
+        if vendor_product = product.vendor_products.create(vendor_id: current_vendor.id)
+            redner json: vendor_product , status: :created
         else
-            if new_product = Product.create(product_prams)
-                VendorProduct.create(new_prod.id, current_vendor)
-            else
-                
-            end
-
+            render json: vendor_product.errors, status: :bad_request
         end
-    end
-
-    def product_prams
-        :vendor_id, :product_id
-        params.requeire(:product).permit(:name, ...)
+        
     end
 end
