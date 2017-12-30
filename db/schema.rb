@@ -66,7 +66,7 @@ ActiveRecord::Schema.define(version: 20171226131145) do
   create_table "vendors", force: :cascade do |t|
     t.string "name"
     t.string "email"
-    t.string "encrypted_password"
+    t.string "password_digest"
     t.integer "current_balance", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

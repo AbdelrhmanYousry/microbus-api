@@ -5,4 +5,8 @@ Rails.application.routes.draw do
   get '/products', to: 'products#index'
   get '/current_user', to: 'fetch_user#show'
 
+  resources :vendor_registrations, only: :create
+  post 'vendor/login', to: 'vendor_sessions#login'
+  get '/current_vendor', to: 'fetch_vendor#show'
+
 end
