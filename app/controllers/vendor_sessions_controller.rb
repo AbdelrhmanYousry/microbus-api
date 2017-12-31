@@ -13,7 +13,7 @@ class VendorSessionsController < ApplicationController
           private
       def response_obj(vendor)
         {
-          auth_token: JsonWebToken.encode({vendor_id: vendor.id}),
+          auth_token: JsonWebToken.encode({vendor_id: vendor.id, type: 'vendor'}),
           vendor: {vendor_id: vendor.id, vendor_name: vendor.name, vendor_email: vendor.email}
         }
       end

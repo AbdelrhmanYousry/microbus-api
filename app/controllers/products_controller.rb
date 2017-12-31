@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action  :authenticate_vendor_request!
+  before_action  :session_info_check!
 
   def index
     products = Product.all

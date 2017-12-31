@@ -16,6 +16,15 @@ class ApplicationController < ActionController::API
   rescue JWT::VerificationError, JWT::DecodeError
     render json: { message: 'You must relog'}, status: :unauthorized
   end
+
+  def session_info_check!
+    if !session_info.present?
+      render json: {message: 'You must be logged in'}, status: :unauthorized
+    end
+  rescue JWT::VerificationError, JWT::DecodeError
+    render json: { message: 'You must relog'}, status: :unauthorized
+  end
+  
   private
   def jwt_token
     #@payload_token || = if request.headers['Authentication-Token'].present?
