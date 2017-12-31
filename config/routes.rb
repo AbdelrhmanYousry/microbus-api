@@ -4,5 +4,8 @@ Rails.application.routes.draw do
   post 'consumer/login', to: 'consumer_sessions#login'
   get '/products', to: 'products#index'
   get '/current_user', to: 'fetch_user#show'
-
+  get '/search', to: 'products#autocomplete'
+  get '/wishlists', to: 'wishlists#index'
+  post '/wishlists', to: 'wishlists#create'
+  post '/consumer/addproduct', to: 'wishlists#createAndAdd'
 end
