@@ -8,4 +8,8 @@ Rails.application.routes.draw do
   get '/wishlists', to: 'wishlists#index'
   post '/wishlists', to: 'wishlists#create'
   post '/consumer/addproduct', to: 'wishlists#createAndAdd'
+  resources :vendor_registrations, only: :create
+  post 'vendor/login', to: 'vendor_sessions#login'
+  get '/current_vendor', to: 'fetch_vendor#show'
+
 end
