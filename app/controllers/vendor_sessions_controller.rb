@@ -1,15 +1,15 @@
 class VendorSessionsController < ApplicationController
     def login
         vendor = Vendor.find_by(email: params[:email])
-      
+
             if vendor && vendor.authenticate(params[:password])
               render json: response_obj(vendor), status: :ok
               # render json: {message: 'login successful' } , status: :ok
             else
               render json: {error: 'Invalid username / password'}, status: :unauthorized
             end
-          end
-      
+    end
+
           private
       def response_obj(vendor)
         {

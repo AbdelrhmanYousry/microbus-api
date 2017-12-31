@@ -3,7 +3,7 @@ class JsonWebToken
   # Encodes and signs JWT Payload with expiration
   def self.encode(payload)
     # payload.reverse_merge!(meta)
-    JWT.encode(payload, Rails.application.secrets.secret_key_Rails.application.secrets.secret_key_base)
+    JWT.encode(payload, Rails.application.secrets.secret_key_base)
   end
 
   # Decodes the JWT with the signed secret
