@@ -24,7 +24,7 @@ class ApplicationController < ActionController::API
   rescue JWT::VerificationError, JWT::DecodeError
     render json: { message: 'You must relog'}, status: :unauthorized
   end
-  
+
   private
   def jwt_token
     #@payload_token || = if request.headers['Authentication-Token'].present?
@@ -39,7 +39,7 @@ class ApplicationController < ActionController::API
   end
 
   def current_user
-    @current_user ||= Consumer.find session_info[:user_id]
+    @current_user ||= Consumer.find session_info[:consumer_id]
   rescue ActiveRecord::RecordNotFound
     nil
   end

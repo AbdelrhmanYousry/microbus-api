@@ -1,4 +1,4 @@
-class ConsumerRegistrationsController < ApplicationController
+  class ConsumerRegistrationsController < ApplicationController
   def create
     consumer = Consumer.new(consumer_params)
 
