@@ -10,4 +10,16 @@ class Consumer < ApplicationRecord
 
   validates :name, :email, :password_digest, :current_balance, presence: true
   validates :name, :email, uniqueness: true
+
+  #current_user.buy(Offer.find params[:id])
+  def buy(offer)
+    transaction = self.source_transactions.build destination: offer, amount: offer.price
+
+    if transaction.save
+      #minus el balance
+      self.balance -= transaction.amount
+    else
+      return false
+    end
+  end
 end

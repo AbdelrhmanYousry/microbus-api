@@ -14,8 +14,10 @@ Rails.application.routes.draw do
   delete '/vendor/deleteproduct', to: 'vendor_products#destroy'
   post '/vendor/addproduct', to: 'vendor_products#createAndAdd'
   resources :vendor_registrations, only: :create
-  resources :vendor_products, only: :show 
+  resources :vendor_products, only: :show
+  resources :offers, only: [:create, :show, :index]
   post 'vendor/login', to: 'vendor_sessions#login'
+  resources :current_vendor_offers, only: :index
   # get '/current_vendor', to: 'fetch_vendor#show'
 
 end
