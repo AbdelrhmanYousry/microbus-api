@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   resources :offers, only: [:create, :show, :index]
   post 'vendor/login', to: 'vendor_sessions#login'
   resources :current_vendor_offers, only: :index
+  resources :charges
+  post '/charge_makmaks', to: 'makmak_charges#charge'
   # get '/current_vendor', to: 'fetch_vendor#show'
 
 end

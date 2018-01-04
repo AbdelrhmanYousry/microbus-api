@@ -22,4 +22,8 @@ class Consumer < ApplicationRecord
       return false
     end
   end
+
+  def charge(makmaks)
+    self.current_balance += makmaks
+  end
 end
