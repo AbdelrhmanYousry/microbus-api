@@ -2,6 +2,7 @@ class Consumer < ApplicationRecord
   has_secure_password
   has_many :wishlists
   has_many :products, through: :wishlists
+  has_many :notifications, as: :recipient
 
   has_many :source_transactions, class_name: 'Transaction', as: :source
   has_many :bought_offers, class_name: 'Offer', through: :source_transactions, source: :destination, source_type: 'Offer'
