@@ -17,6 +17,10 @@ before_action :authenticate_request!, only: [:index]
 
   end
 
+  def show
+    @offer = Offer.find(params[:id])
+  end
+
   private
   def offer_params
     params.require(:offer).permit(:name, :description, :price , :duration, :target_count, :vendor_product_id, :thumbnail)
