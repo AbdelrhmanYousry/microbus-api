@@ -12,18 +12,37 @@ class Consumer < ApplicationRecord
   validates :name, :email, uniqueness: true
 
   #current_user.buy(Offer.find params[:id])
-  def buy(offer)
-    transaction = self.source_transactions.build destination: offer, amount: offer.price
+  def withdraw(amount)
+    if self.current_balance >= amount
+      self.current_balance -= amount
 
-    if transaction.save
-      #minus el balance
-      self.balance -= transaction.amount
-    else
-      return false
+
+    self.save
     end
+
   end
+
+  def deposit(amount)
+    self.current_balance += amount
+    self.save
+  end
+  
+
+  def buy(offer)
+    transaction do
+      self.source_transactions.create! destination: offer, amount: offer.price
+      self.withdraw(offer.price)
+    end
+  rescue
+    return false
+  end
+
+
+  # end
 
   def charge(makmaks)
     self.current_balance += makmaks
   end
+
+
 end

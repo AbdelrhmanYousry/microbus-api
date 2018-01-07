@@ -10,4 +10,10 @@ class Vendor < ApplicationRecord
     # def offers
     #   Offer.joins(:vendor_product).where('vendor_products.vendor_id = ?', self.id)
     # end
+
+   
+  	def deposit(amount)
+    	self.current_balance += amount
+    	self.save
+	end
 end
