@@ -17,8 +17,11 @@ before_action :authenticate_request!, only: [:index]
 
   end
 
-  def show
+def show
     @offer = Offer.find(params[:id])
+end
+
+def update
   end
 
   private
