@@ -5,7 +5,7 @@ before_action :authenticate_request!, only: [:index]
   def index
     @offers = Offer.all
   end
-  
+
   def create
     offer = @current_vendor.offers.new offer_params
 
@@ -16,6 +16,13 @@ before_action :authenticate_request!, only: [:index]
       render json: { message: 'failed'}, status: :unauthorized
     end
 
+  end
+
+def show
+    @offer = Offer.find(params[:id])
+end
+
+def update
   end
 
   private

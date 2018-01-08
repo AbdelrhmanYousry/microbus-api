@@ -14,7 +14,7 @@ class VendorSessionsController < ApplicationController
       def response_obj(vendor)
         {
           auth_token: JsonWebToken.encode({vendor_id: vendor.id}),
-          user: {user_id: vendor.id, user_name: vendor.name, user_email: vendor.email, user_type: 'vendor'}
+          user: {user_id: vendor.id, user_name: vendor.name, user_email: vendor.email, user_type: 'vendor', user_balance: vendor.current_balance}
         }
       end
 end

@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20180107194854) do
+=======
+ActiveRecord::Schema.define(version: 20180108112550) do
+>>>>>>> 5c0823c1421037b7c022653ecd67d420f66eb3de
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,7 +33,6 @@ ActiveRecord::Schema.define(version: 20180107194854) do
   create_table "offers", force: :cascade do |t|
     t.string "name"
     t.integer "price"
-    t.time "duration"
     t.text "description"
     t.integer "target_count"
     t.bigint "vendor_product_id"
@@ -37,7 +40,11 @@ ActiveRecord::Schema.define(version: 20180107194854) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "thumbnail"
+<<<<<<< HEAD
     t.string "status", default: "progress"
+=======
+    t.datetime "deadline"
+>>>>>>> 5c0823c1421037b7c022653ecd67d420f66eb3de
     t.index ["vendor_product_id"], name: "index_offers_on_vendor_product_id"
   end
 
