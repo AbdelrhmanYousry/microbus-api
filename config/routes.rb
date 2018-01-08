@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   resources :current_vendor_offers, only: :index
   resources :charges
   post '/charge_makmaks', to: 'makmak_charges#charge'
+  post '/offer/buy', to: 'transactions#buy'
   # get '/current_vendor', to: 'fetch_vendor#show'
 
 end

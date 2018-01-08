@@ -13,25 +13,22 @@ class Consumer < ApplicationRecord
 
   #current_user.buy(Offer.find params[:id])
   def withdraw(amount)
-    if self.current_balance >= amount
       self.current_balance -= amount
-
-
-    self.save
-    end
-
+      self.save
   end
 
   def deposit(amount)
     self.current_balance += amount
     self.save
   end
-  
+
 
   def buy(offer)
-    transaction do
-      self.source_transactions.create! destination: offer, amount: offer.price
-      self.withdraw(offer.price)
+    if self.current_balance >= offer.price
+      transaction do
+        self.withdraw(offer.price)
+        self.source_transactions.create! destination: offer, amount: offer.price
+      end
     end
   rescue
     return false
