@@ -10,7 +10,7 @@ class Offer < ApplicationRecord
   has_many :buying_consumers, class_name: 'Consumer', through: :destination_transactions, source: :source, source_type: 'Consumer'
   has_one :vendor, through: :vendor_product
 
-  validates :name, :price, :duration, :description, :target_count, :thumbnail,  presence: true
+  validates :name, :price, :deadline, :description, :target_count, :thumbnail,  presence: true
 
   has_many :buying_consumers, class_name: 'Consumer', through: :destination_transactions, source: :source, source_type: 'Consumer' do |consumers|
   	def refund
@@ -28,8 +28,6 @@ class Offer < ApplicationRecord
   has_one :vendor, through: :vendor_product
   has_one :product, through: :vendor_product
   has_many :wishlist_consumers, through: :product, source: :consumers
-
-  validates :name, :price, :duration, :description, :target_count, :thumbnail,  presence: true
 
   # scope :active, -> { where(active: true) }
 
