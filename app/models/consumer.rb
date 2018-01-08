@@ -24,10 +24,12 @@ class Consumer < ApplicationRecord
 
 
   def buy(offer)
+   
     if self.current_balance >= offer.price
       transaction do
         self.withdraw(offer.price)
         self.source_transactions.create! destination: offer, amount: offer.price
+        offer.completed_check
       end
     end
   rescue

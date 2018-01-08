@@ -30,6 +30,7 @@ class Offer < ApplicationRecord
   has_many :wishlist_consumers, through: :product, source: :consumers
 
   # scope :active, -> { where(active: true) }
+  after_create :setup_trigger, :completed_check
 
   def progress
     (self.buying_consumers.count.to_f / self.target_count.to_f) * 100
@@ -42,5 +43,24 @@ class Offer < ApplicationRecord
   def pay_to_vendor
   	self.vendor.deposit(current_balance)
   end
+  
+  def completed_check
+  	if self.buying_consumers.count = self.target_count
+  		CompletedJob.perform_later(self)
+  	end
+  end
+  
+  private
+  def setup_trigger
+  	ExpiredJob.set(wait: self.deadline.second).perform_later(self)
+  end
 
+
+
+  def epxired_check
+  	if self.status == "expired"
+  		self.buying_consumers.refund
+  	end
+  	
+  end
 end
