@@ -9,6 +9,7 @@ before_action :authenticate_request!, only: [:index]
   def create
     offer = @current_vendor.offers.new offer_params
 
+
     if offer.save
       render json: offer
     else
@@ -17,12 +18,8 @@ before_action :authenticate_request!, only: [:index]
 
   end
 
-  def update
-    
-  end
-
   private
   def offer_params
-    params.require(:offer).permit(:name, :description, :price , :duration, :target_count, :vendor_product_id, :thumbnail)
+    params.require(:offer).permit(:name, :description, :price , :duration, :target_count, :vendor_product_id, :thumbnail, :status)
   end
 end

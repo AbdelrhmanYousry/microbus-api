@@ -26,6 +26,7 @@ class Offer < ApplicationRecord
   validates :name, :price, :duration, :description, :target_count, :thumbnail,  presence: true
 
   # scope :active, -> { where(active: true) }
+  after_create :setup_trigger, :completed_check
 
   def increment(amount)
 
@@ -41,5 +42,24 @@ class Offer < ApplicationRecord
   def pay_to_vendor
   	self.vendor.deposit(current_balance)
   end
+  
+  def completed_check
+  	if self.buying_consumers.count = self.target_count
+  		CompletedJob.perform_later(self)
+  	end
+  end
+  
+  private
+  def setup_trigger
+  	ExpiredJob.set(wait: self.deadline.day).perform_later(self)
+  end
 
+
+
+  def epxired_check
+  	if self.status == "expired"
+  		self.buying_consumers.refund
+  	end
+  	
+  end
 end

@@ -32,6 +32,7 @@ class Consumer < ApplicationRecord
     transaction do
       self.source_transactions.create! destination: offer, amount: offer.price
       self.withdraw(offer.price)
+      offer.completed_check
     end
   rescue
     return false
