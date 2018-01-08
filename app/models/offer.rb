@@ -54,7 +54,7 @@ class Offer < ApplicationRecord
   
   private
   def setup_trigger
-  	ExpiredJob.set(wait: self.deadline.day).perform_later(self)
+  	ExpiredJob.set(wait: self.deadline.second).perform_later(self)
   end
 
 
