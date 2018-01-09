@@ -14,7 +14,7 @@ class Offer < ApplicationRecord
       transaction do
         self.each do |dtransaction|
           dtransaction.source.destination_transactions.create! source: proxy_association.owner, amount: proxy_association.owner.price
-          dtransaction.source.deposit(proxy_association.owner.price)      
+          dtransaction.source.deposit(proxy_association.owner.price)
         end
       end
     end
@@ -25,7 +25,7 @@ class Offer < ApplicationRecord
 
   validates :name, :price, :deadline, :description, :target_count, :thumbnail,  presence: true
 
-  has_many :buying_consumers, class_name: 'Consumer', through: :destination_transactions, source: :source, source_type: 'Consumer' 
+  has_many :buying_consumers, class_name: 'Consumer', through: :destination_transactions, source: :source, source_type: 'Consumer'
   # do |consumers|
   # 	def refund
   # 		transaction do
@@ -34,7 +34,7 @@ class Offer < ApplicationRecord
 
   # 	  		consumer.deposit(proxy_association.owner.price)
 
-       
+
 	 #  		end
 	 #  	end
   # 	end
@@ -67,13 +67,9 @@ class Offer < ApplicationRecord
 
   private
   def setup_trigger
-<<<<<<< HEAD
-  	ExpiredJob.set(wait_until: self.deadline).perform_later(self)
-=======
     # ExpiredJob.set(wait_until: self.deadline.to_i).perform_later(self)
     # deadline = self.deadline.in_time_zone("Africa/Cairo").to_time
-    ExpiredJob.set(wait_until: self.deadline.in_time_zone("Africa/Cairo").to_time-2.hour).perform_later(self) 
->>>>>>> 5f9cc60efff9f89b57fa6df150cc9f9ac800954d
+    ExpiredJob.set(wait_until: self.deadline.in_time_zone("Africa/Cairo").to_time-2.hour).perform_later(self)
   end
 
 
@@ -85,9 +81,14 @@ class Offer < ApplicationRecord
   end
 
   def makeOfferNotification
-    self.wishlist_consumers.each do |consumer|
-      consumer.notifications.create(offer_id: self.id, body: "Seller #{self.vendor.name} created an offer on item #{self.product.name} check it now! ")
+    if notifiable_type == 'consumer'
+      self.wishlist_consumers.each do |consumer|
+        consumer.notifications.create(offer_id: self.id, body: "Seller #{self.vendor.name} created an offer on item #{self.product.name} check it now! ")
+      end
+    elsif notifiable_type == 'vendor'
+      self.vendor.notifications.create(offer_id: self.id, body:"Sorry, Your offer on #{self.product} wasn't successful")
     end
   end
+
 
 end

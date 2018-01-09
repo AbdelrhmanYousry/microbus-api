@@ -3,6 +3,10 @@ class NotificationRelayJob < ApplicationJob
 
   def perform(*args)
     notification = args[0]
-    ActionCable.server.broadcast "notifications:#{notification.notifiable_id}", notification
+    if notification.notifiable_type == 'consumer'
+      ActionCable.server.broadcast "notifications:#{notification.notifiable_id}", notification
+    else
+      ActionCable.server.broadcast "vendor_notifications:#{notification.notifiable_id}", notification
+    end
   end
 end
