@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  mount ActionCable.server => '/cable'
   resources :consumer_registrations, only: :create
   post 'consumer/login', to: 'consumer_sessions#login'
   get '/products', to: 'products#index'
@@ -21,6 +22,6 @@ Rails.application.routes.draw do
   resources :charges
   post '/charge_makmaks', to: 'makmak_charges#charge'
   post '/offer/buy', to: 'transactions#buy'
-  # get '/current_vendor', to: 'fetch_vendor#show'
-
+  get '/consumer/notifications', to: 'fetch_notifications#fetch_new_notifications'
+  patch '/consumer/notifications/:id', to: 'fetch_notifications#mark_as_read'
 end

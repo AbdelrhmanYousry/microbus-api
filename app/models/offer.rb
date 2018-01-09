@@ -1,6 +1,10 @@
 class Offer < ApplicationRecord
+  after_create :makeOfferNotification
+
   belongs_to :vendor_product
   mount_uploader :thumbnail, ThumbnailUploader
+
+  has_one :product, through: :vendor_product
 
 
   has_many :source_transactions, class_name: 'Transaction', as: :source
@@ -43,16 +47,16 @@ class Offer < ApplicationRecord
   def pay_to_vendor
   	self.vendor.deposit(current_balance)
   end
-  
+
   def completed_check
-  	if self.buying_consumers.count = self.target_count
+  	if self.buying_consumers.count == self.target_count
   		CompletedJob.perform_later(self)
   	end
   end
-  
+
   private
   def setup_trigger
-  	ExpiredJob.set(wait: self.deadline.second).perform_later(self)
+  	ExpiredJob.set(wait_until: self.deadline).perform_later(self)
   end
 
 
@@ -61,6 +65,12 @@ class Offer < ApplicationRecord
   	if self.status == "expired"
   		self.buying_consumers.refund
   	end
-  	
   end
+
+  def makeOfferNotification
+    self.wishlist_consumers.each do |consumer|
+      consumer.notifications.create(offer_id: self.id, body: "Seller #{self.vendor.name} created an offer on item #{self.product.name} check it now! ")
+    end
+  end
+
 end

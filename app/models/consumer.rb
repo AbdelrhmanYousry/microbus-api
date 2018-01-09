@@ -7,7 +7,7 @@ class Consumer < ApplicationRecord
   has_many :bought_offers, class_name: 'Offer', through: :source_transactions, source: :destination, source_type: 'Offer'
   has_many :destination_transactions, class_name: 'Transaction', as: :destination
   has_many :refunded_offers, class_name: 'Offer', through: :destination_transactions, source: :source, source_type: 'Offer'
-
+  has_many :notifications, as: :notifiable
   validates :name, :email, :password_digest, :current_balance, presence: true
   validates :name, :email, uniqueness: true
 
@@ -24,7 +24,7 @@ class Consumer < ApplicationRecord
 
 
   def buy(offer)
-   
+
     if self.current_balance >= offer.price
       transaction do
         self.withdraw(offer.price)
