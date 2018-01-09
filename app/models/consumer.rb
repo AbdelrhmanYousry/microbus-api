@@ -25,7 +25,7 @@ class Consumer < ApplicationRecord
 
   def buy(offer)
    
-    if self.current_balance >= offer.price
+    if self.current_balance >= offer.price && offer.status != "completed" && offer.status != "expired"
       transaction do
         self.withdraw(offer.price)
         self.source_transactions.create! destination: offer, amount: offer.price
