@@ -27,6 +27,10 @@ def update
 
   private
   def offer_params
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5f9cc60efff9f89b57fa6df150cc9f9ac800954d
     params.require(:offer).permit(:name, :description, :price , :deadline, :target_count, :vendor_product_id, :thumbnail, :status)
   end
 end

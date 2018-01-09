@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20180108202050) do
+=======
+ActiveRecord::Schema.define(version: 20180108112550) do
+>>>>>>> 5f9cc60efff9f89b57fa6df150cc9f9ac800954d
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,8 +50,13 @@ ActiveRecord::Schema.define(version: 20180108202050) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "thumbnail"
+<<<<<<< HEAD
     t.datetime "deadline"
     t.string "status", default: "progress"
+=======
+    t.string "status", default: "progress"
+    t.datetime "deadline"
+>>>>>>> 5f9cc60efff9f89b57fa6df150cc9f9ac800954d
     t.index ["vendor_product_id"], name: "index_offers_on_vendor_product_id"
   end
 

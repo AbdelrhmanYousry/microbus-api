@@ -13,6 +13,7 @@
 /public/*
 !/log/.keep
 !/tmp/.keep
+/public/system
 
 .ruby-version
 .byebug_history
