@@ -65,6 +65,13 @@ class Offer < ApplicationRecord
   	end
   end
 
+  def notify
+    self.vendor.notifications.create(offer_id: self.id, body:"Sorry, Your offer on #{self.product.name} wasnt successful")
+  end
+  def notifySuccess
+    self.vendor.notifications.create(offer_id: self.id, body:"Your offer on #{self.product.name} was successful, #{self.current_balance} was transferred to you!")
+  end
+
   private
   def setup_trigger
     # ExpiredJob.set(wait_until: self.deadline.to_i).perform_later(self)
@@ -81,14 +88,11 @@ class Offer < ApplicationRecord
   end
 
   def makeOfferNotification
-    if notifiable_type == 'consumer'
-      self.wishlist_consumers.each do |consumer|
-        consumer.notifications.create(offer_id: self.id, body: "Seller #{self.vendor.name} created an offer on item #{self.product.name} check it now! ")
-      end
-    elsif notifiable_type == 'vendor'
-      self.vendor.notifications.create(offer_id: self.id, body:"Sorry, Your offer on #{self.product} wasn't successful")
+    self.wishlist_consumers.each do |consumer|
+      consumer.notifications.create(offer_id: self.id, body: "Seller #{self.vendor.name} created an offer on item #{self.product.name} check it now! ")
     end
   end
+
 
 
 end

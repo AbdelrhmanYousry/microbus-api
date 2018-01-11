@@ -1,6 +1,6 @@
 class OffersController < ApplicationController
 before_action :authenticate_vendor_request!, only: [:create]
-before_action :authenticate_request!, only: [:index]
+before_action :authenticate_request!, only: [:show]
 
   def index
     @offers = Offer.all
