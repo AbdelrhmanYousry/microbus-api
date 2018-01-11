@@ -18,11 +18,11 @@ before_action :authenticate_request!, only: [:show]
 
   end
 
-def show
-    @offer = Offer.find(params[:id])
-end
+  def show
+      @offer = Offer.find(params[:id])
+  end
 
-def update
+  def update
   end
 
   private
