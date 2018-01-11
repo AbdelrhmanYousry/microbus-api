@@ -7,6 +7,7 @@ class CompletedJob < ApplicationJob
 
     if offer.update status: "completed"
       	offer.pay_to_vendor
+        offer.notifySuccess
     end
 
   end

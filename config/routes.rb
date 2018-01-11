@@ -22,6 +22,10 @@ Rails.application.routes.draw do
   resources :charges
   post '/charge_makmaks', to: 'makmak_charges#charge'
   post '/offer/buy', to: 'transactions#buy'
-  get '/consumer/notifications', to: 'fetch_notifications#fetch_new_notifications'
+  get '/consumer/notifications', to: 'notifications#index'
+  get '/consumer/latest_notifications', to: 'fetch_notifications#fetch_latest_notifications'
   patch '/consumer/notifications/:id', to: 'fetch_notifications#mark_as_read'
+  get '/vendor/notifications', to: 'vendor_notifications#index'
+  get '/vendor/latest_notifications', to: 'fetch_vendor_notifications#fetch_latest_notifications'
+  patch '/vendor/notifications/:id', to: 'fetch_vendor_notifications#mark_as_read'
 end
