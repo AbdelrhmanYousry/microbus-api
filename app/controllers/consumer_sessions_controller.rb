@@ -15,7 +15,7 @@ class ConsumerSessionsController < ApplicationController
 def response_obj(consumer)
   {
     auth_token: JsonWebToken.encode({consumer_id: consumer.id}),
-    user: {user_id: consumer.id, user_name: consumer.name, user_email: consumer.email, user_type: 'consumer'}
+    user: {user_id: consumer.id, user_name: consumer.name, user_email: consumer.email, user_type: 'consumer', user_balance: consumer.current_balance}
   }
 end
 
