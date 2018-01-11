@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   resources :consumer_registrations, only: :create
   post 'consumer/login', to: 'consumer_sessions#login'
@@ -22,5 +23,7 @@ Rails.application.routes.draw do
   post '/charge_makmaks', to: 'makmak_charges#charge'
   post '/offer/buy', to: 'transactions#buy'
   # get '/current_vendor', to: 'fetch_vendor#show'
+
+  get '/top_offers', to: 'top_offers#fetchTopOffers'
 
 end
