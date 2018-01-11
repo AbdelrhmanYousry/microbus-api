@@ -3,7 +3,7 @@ class Vendor < ApplicationRecord
     has_many :vendor_products
     has_many :products, through: :vendor_products
     has_many :offers , through: :vendor_products
-
+    has_many :notifications, as: :notifiable
     has_many :transactions, source: :destination, source_type: 'Vendor'
     validates :name, :email, :password_digest, :current_balance, presence: true
 
@@ -11,7 +11,7 @@ class Vendor < ApplicationRecord
     #   Offer.joins(:vendor_product).where('vendor_products.vendor_id = ?', self.id)
     # end
 
-   
+
   	def deposit(amount)
     	self.current_balance += amount
     	self.save

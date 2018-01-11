@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  notifiable_id: 1
+  notifiable_type: MyString
+  body: MyString
+  offer_id: 1
+
+two:
+  notifiable_id: 1
+  notifiable_type: MyString
+  body: MyString
+  offer_id: 1

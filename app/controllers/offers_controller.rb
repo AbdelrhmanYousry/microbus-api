@@ -1,6 +1,6 @@
 class OffersController < ApplicationController
 before_action :authenticate_vendor_request!, only: [:create]
-before_action :authenticate_request!, only: [:index]
+before_action :authenticate_request!, only: [:show]
 
   def index
     @offers = Offer.all
@@ -27,7 +27,6 @@ before_action :authenticate_request!, only: [:index]
 
   private
   def offer_params
-
     params.require(:offer).permit(:name, :description, :price , :deadline, :target_count, :vendor_product_id, :thumbnail, :status)
   end
 end
