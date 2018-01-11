@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171224161916) do
+ActiveRecord::Schema.define(version: 20171231113534) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,10 +18,12 @@ ActiveRecord::Schema.define(version: 20171224161916) do
   create_table "consumers", force: :cascade do |t|
     t.string "name"
     t.string "email"
-    t.string "encrypted_password"
+    t.string "password_digest"
     t.integer "current_balance", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "confirmation_token"
+    t.date "confirmed_at"
   end
 
   create_table "offers", force: :cascade do |t|
@@ -44,6 +46,16 @@ ActiveRecord::Schema.define(version: 20171224161916) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "transactions", force: :cascade do |t|
+    t.integer "source_id"
+    t.string "source_type"
+    t.integer "destination_id"
+    t.string "destination_type"
+    t.integer "amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "vendor_products", force: :cascade do |t|
     t.integer "product_id"
     t.integer "vendor_id"
@@ -54,10 +66,12 @@ ActiveRecord::Schema.define(version: 20171224161916) do
   create_table "vendors", force: :cascade do |t|
     t.string "name"
     t.string "email"
-    t.string "encrypted_password"
+    t.string "password_digest"
     t.integer "current_balance", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "confirmation_token"
+    t.date "confirmed_at"
   end
 
   create_table "wishlists", force: :cascade do |t|

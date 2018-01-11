@@ -1,5 +1,5 @@
 class Product < ApplicationRecord
-
+  searchkick word_start: [:name]
     has_many :wishlists
     has_many :consumers, through: :wishlists
 

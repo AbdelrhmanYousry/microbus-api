@@ -13,4 +13,5 @@
 !/log/.keep
 !/tmp/.keep
 
+.ruby-version
 .byebug_history
