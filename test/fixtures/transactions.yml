@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  source_id: 1
+  source_type: MyString
+  destination_id: 1
+  destination_type: MyString
+  amout: 1
+
+two:
+  source_id: 1
+  source_type: MyString
+  destination_id: 1
+  destination_type: MyString
+  amout: 1
