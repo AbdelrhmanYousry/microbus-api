@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'latest_offers/fetchLatestOffers'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   mount ActionCable.server => '/cable'
   resources :consumer_registrations, only: :create
@@ -31,4 +33,7 @@ Rails.application.routes.draw do
   get '/vendor/notifications', to: 'vendor_notifications#index'
   get '/vendor/latest_notifications', to: 'fetch_vendor_notifications#fetch_latest_notifications'
   patch '/vendor/notifications/:id', to: 'fetch_vendor_notifications#mark_as_read'
+
+  get '/latest_offers', to: 'latest_offers#fetchLatestOffers'
+
 end
