@@ -22,7 +22,6 @@ before_action  :session_info_check!, only: [:show]
 
   def consumer_offers
     @offers = @current_user.bought_offers
-    render json: @offers
   end
 
   def show
