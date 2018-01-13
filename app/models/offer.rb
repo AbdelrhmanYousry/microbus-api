@@ -22,33 +22,25 @@ class Offer < ApplicationRecord
   end
 
   has_one :vendor, through: :vendor_product
-
-  validates :name, :price, :deadline, :description, :target_count, :thumbnail,  presence: true
-
   has_many :buying_consumers, class_name: 'Consumer', through: :destination_transactions, source: :source, source_type: 'Consumer'
-  # do |consumers|
-  # 	def refund
-  # 		transaction do
-	 #  		self.each do |consumer|
-  # 	  		consumer.destination_transactions.create! source: proxy_association.owner, amount: proxy_association.owner.price
-
-  # 	  		consumer.deposit(proxy_association.owner.price)
-
-
-	 #  		end
-	 #  	end
-  # 	end
-  # end
-
   has_one :vendor, through: :vendor_product
   has_one :product, through: :vendor_product
   has_many :wishlist_consumers, through: :product, source: :consumers
 
-  # scope :active, -> { where(active: true) }
+  validates :name, :price, :deadline, :description, :target_count, :thumbnail,  presence: true
+  validates :price, :numericality => { :greater_than => 0 }
+  validates :target_count, :numericality => { :greater_than => 0 }
+  validate :deadline_cannot_be_in_the_past
+
   after_create :setup_trigger, :completed_check
 
   def progress
     (self.buying_consumers.count.to_f / self.target_count.to_f) * 100
+  end
+  def deadline_cannot_be_in_the_past
+    if deadline.present? && deadline < Time.now.in_time_zone("Africa/Cairo")+2.hour
+      errors.add(:deadline, "can't be in the past")
+    end
   end
 
   def current_balance

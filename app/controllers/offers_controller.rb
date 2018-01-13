@@ -15,7 +15,7 @@ before_action  :session_info_check!, only: [:show]
     if offer.save
       render json: offer
     else
-      render json: { message: 'failed'}, status: :unauthorized
+      render json: offer.errors.full_messages, status: :unauthorized
     end
 
   end
