@@ -46,8 +46,8 @@ ActiveRecord::Schema.define(version: 20180108202050) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "thumbnail"
-    t.string "status", default: "progress"
     t.datetime "deadline"
+    t.string "status", default: "progress"
     t.index ["vendor_product_id"], name: "index_offers_on_vendor_product_id"
   end
 

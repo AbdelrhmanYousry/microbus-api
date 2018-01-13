@@ -14,7 +14,6 @@ class Consumer < ApplicationRecord
   validates :password, length: { minimum: 6 }
 
 
-  #current_user.buy(Offer.find params[:id])
   def withdraw(amount)
       self.current_balance -= amount
       self.save
@@ -40,7 +39,6 @@ class Consumer < ApplicationRecord
   end
 
 
-  # end
 
   def charge(makmaks)
     self.current_balance += makmaks
