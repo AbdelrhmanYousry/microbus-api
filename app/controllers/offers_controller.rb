@@ -1,9 +1,11 @@
 class OffersController < ApplicationController
 before_action :authenticate_vendor_request!, only: [:create]
-before_action :authenticate_request!, only: [:show]
+before_action :authenticate_request!, only: [ :consumer_offers]
+before_action  :session_info_check!, only: [:show]
+
 
   def index
-    @offers = Offer.all
+    @offers = Offer.where(status: 'progress')
   end
 
   def create
@@ -16,6 +18,11 @@ before_action :authenticate_request!, only: [:show]
       render json: { message: 'failed'}, status: :unauthorized
     end
 
+  end
+
+  def consumer_offers
+    @offers = @current_user.bought_offers
+    render json: @offers
   end
 
   def show

@@ -8,6 +8,7 @@ class ExpiredJob < ApplicationJob
 	  	if offer.update status: "expired"
 	      	offer.destination_transactions.refund
           offer.notify
+          offer.notify_consumers_failure
 	    end
     end
 

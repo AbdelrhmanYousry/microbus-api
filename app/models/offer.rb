@@ -72,6 +72,18 @@ class Offer < ApplicationRecord
     self.vendor.notifications.create(offer_id: self.id, body:"Your offer on #{self.product.name} was successful, #{self.current_balance} was transferred to you!")
   end
 
+  def notify_consumers_success
+    self.buying_consumers.each do |consumer|
+      consumer.notifications.create(offer_id: self.id, body: "Offer #{self.name} was successful, the seller is processing your order")
+    end
+  end
+
+  def notify_consumers_failure
+    self.buying_consumers.each do |consumer|
+      consumer.notifications.create(offer_id: self.id, body: "Offer #{self.name} was not successful, #{self.price} was refunded to you")
+    end
+  end
+
   private
   def setup_trigger
     # ExpiredJob.set(wait_until: self.deadline.to_i).perform_later(self)
@@ -92,6 +104,8 @@ class Offer < ApplicationRecord
       consumer.notifications.create(offer_id: self.id, body: "Seller #{self.vendor.name} created an offer on item #{self.product.name} check it now! ")
     end
   end
+
+
 
 
 

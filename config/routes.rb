@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   post '/offer/buy', to: 'transactions#buy'
   # get '/current_vendor', to: 'fetch_vendor#show'
   get '/top_offers', to: 'top_offers#fetchTopOffers'
+  get '/bought_offers', to: 'offers#consumer_offers'
   get '/consumer/notifications', to: 'notifications#index'
   get '/consumer/latest_notifications', to: 'fetch_notifications#fetch_latest_notifications'
   patch '/consumer/notifications/:id', to: 'fetch_notifications#mark_as_read'
