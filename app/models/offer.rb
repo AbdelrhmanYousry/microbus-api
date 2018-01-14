@@ -29,7 +29,10 @@ class Offer < ApplicationRecord
   has_many :buying_consumers, class_name: 'Consumer', through: :destination_transactions, source: :source, source_type: 'Consumer'
   has_many :wishlist_consumers, through: :product, source: :consumers
 
-
+  validates :name, :price, :deadline, :description, :target_count, :thumbnail,  presence: true
+  validates :price, :numericality => { :greater_than => 0 }
+  validates :target_count, :numericality => { :greater_than => 0 }
+  validate :deadline_cannot_be_in_the_past, on: :create
 
   after_create :setup_trigger, :completed_check
 
@@ -79,7 +82,7 @@ class Offer < ApplicationRecord
 
   private
   def setup_trigger
-    ExpiredJob.set(wait_until: self.deadline.in_time_zone("Africa/Cairo").to_time-2.hour).perform_later(self)
+    ExpiredJob.set(wait_until: self.deadline.utc-2.hours).perform_later(self)
   end
 
 
