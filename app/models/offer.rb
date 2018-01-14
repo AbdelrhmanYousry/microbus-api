@@ -6,7 +6,6 @@ class Offer < ApplicationRecord
   validates :name, :price, :deadline, :description, :target_count, :thumbnail,  presence: true
   validates :price, :numericality => { :greater_than => 0 }
   validates :target_count, :numericality => { :greater_than => 0 }
-  validate :deadline_cannot_be_in_the_past
 
   has_one :product, through: :vendor_product
   has_one :vendor, through: :vendor_product
